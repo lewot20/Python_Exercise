@@ -1,0 +1,47 @@
+###Print 연습하기
+print('What is your name?') #ask for their name
+MyName = input()
+print('It is good to meet you, ' + MyName)
+print ('The length of your name is :')
+print(len(MyName))
+print('What is your age?')
+MyAge = input()
+print('You will be ' +str(int(MyAge) +1) + ' in a year')
+
+###while 문 만들기
+name =''
+while name != 'your name':
+    print('Please type your name.')
+    name= input()
+print('Thank you!')
+
+###break 문 만들기
+while True:
+    print('Please type your name.')
+    name = input()
+    if name == 'your name':
+        break
+print('Thank you!')
+
+###continue 문 만들기
+while True:
+    print('Who are you?')
+    name = input()
+    if name != 'Joe':
+        continue
+    print('Hello Joe. What is the password? (It is a fish.)')
+    password = input()
+    if password =='swordfish':
+        break
+print('Access granted')
+
+###  0은 False이다 빈칸''도 False이다
+name = ''
+while not name :
+    print('Enter your name:')
+    name = input()
+print('How many guests will you have?')
+num0fGuests = int(input())
+if num0fGuests:
+    print('Be sure to have enough room for all your guests.')
+print('Done')
