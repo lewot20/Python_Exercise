@@ -1,1 +1,232 @@
-d
+##리스트 만들기
+catnames=[]
+while True:
+    print('Enter the name of Cat ' + str(len(catnames) +1) + ' (Or enter nothing to stop)')
+    name = input()
+    if name =='':
+        break
+    catnames = catnames + [name]
+print('The cat names are:')
+for name in catnames:
+    print(' ' + name)
+
+
+## 리스트와 함께 루프 사용하기
+supplies = ['pens','staplers','flame-throwers','blinders']
+for i in range(len(supplies)):
+    print('Index ' + str(i) + ' in supplies is : ' + supplies[i])
+
+##index() 방법으로 리스트 안에서 값 찾기
+spam = ['hello','hi','howdy','heyas']
+spam.index('hello')
+spam.index('heyas')
+
+import copy
+spam = ['A','B','C','D']
+cheese = copy.copy(spam)
+cheese[1]= 42
+print(spam)
+print(cheese)
+
+### 챕터4 프로그램예제
+def yoso(list):
+    for i in range(0, len(list)):
+        if i < len(list) - 1 :
+            print(list[i], end=',')
+        else :
+            print(' and ' + list[i], end='\n')
+
+spam = ['hello','hi','howdy','heyas']
+yoso(spam)
+
+## dictionary 구조로 data 저장하기 (아직 서버는 없음)
+birthdays = {'Alice':'Apr 1', 'Bob':'Dec 12', 'Carol' :"Mar 4"}
+while True:
+    print('Enter a name: (blank to quit)')
+    name = input()
+    if name == '':
+        break
+    if name in birthdays:
+        print(birthdays[name] + ' is the birthday of ' + name)
+    else :
+        print('I do not have birthday information')
+        print('What is their birthday?')
+        print('if you want to quit, please enter')
+        bday = input()
+        if bday == '':
+            break
+        birthdays[name] = bday
+        print('Birthday database updated.')
+
+### 틱택토 보드 게임 만들기
+theboard = {'top-L':' ','top-M' :' ','top-R':' ','mid-L':' ','mid-M':' ','mid-R':' ','low-L':' ','low-M':' ','low-R':' '}
+def printBoard(board):
+    turn = 'X'
+    for i in range(9):
+        print(board['top-L'] + '|' + board['top-M'] + '|' + board['top-R'])
+        print('-+-+-')
+        print(board['mid-L'] + '|' + board['mid-M'] + '|' + board['mid-R'])
+        print('-+-+-')
+        print(board['low-L'] + '|' + board['low-M'] + '|' + board['low-R'])
+
+
+        print('Turn for ' + turn +'. Move on which space?')
+        print("'top, mid, low + - + L, M, R'")
+        move = input()
+        theboard[move] = turn
+        if turn =='X':
+            turn ='O'
+        else :
+            turn = 'X'
+
+printBoard(theboard)
+
+## 숫자인지 문자인지 검정하기
+while True:
+    print('Enter your age')
+    age = input()
+    if age.isdecimal():
+        break
+    print('Please enter a number for your age')
+
+## 정렬하기
+def printpicnic (itemdict, leftwidth, rigthwidth):
+    print('PICNIC ITEMS'.center(leftwidth+rigthwidth, '-'))
+    for k, v in itemdict.items():
+        print(k.ljust(leftwidth, '.') + str(v).rjust(rigthwidth))
+
+picnicitems={'sandwiches':3, 'apples': 12, 'cups':4, 'cookies':4300}
+printpicnic(picnicitems, 12,2)
+printpicnic(picnicitems, 20, 6)
+
+### 공백 없애기
+spam = 'SpamSpamSpamEggsBaconSpamEggsSpam'
+print(spam.strip('mpaS'))
+
+##pyperclip 모듈 사용하여 문자열 복사 또는 붙여넣기
+import pyperclip
+pyperclip.copy('Helloworld')
+print(pyperclip.paste())
+
+프로그램 설계
+pw.py 다시 만들어봤지만 실행이 되지 않음
+
+## 정규표현식 없이 텍스트 패턴 찾기(p176)
+def isPhoneNumber(text):
+    if len(text) != 12:
+        return False
+    for i in range(0,3):
+        if not text[i].isdecimal():
+            return False
+    if text[3] != '-':
+        return False
+    for i in range(4,7):
+        if not text[i].isdecimal():
+            return False
+    if text[7] != '-':
+        return False
+    for i in range(8,12):
+        if not text[i].isdecimal():
+            return False
+    return True
+
+message = 'Call me at 415-555-1011 tomorrow. 415-555-0000 is my office.'
+message_2 = 'Call me at 010-6396-3575'
+def gumsa(message):
+    print("I'll check the " + str(message))
+    for i in range(len(message)):
+        chunk = message[i:i+12]
+        if isPhoneNumber(chunk):
+            print('Phone number found: ' + chunk)
+    print('Done')
+
+print(gumsa(message))
+print(gumsa(message_2))
+
+
+## 정규식 객체 만들기
+import re
+
+phoneNumRegex = re.compile(r'\d\d\d-\d\d\d-\d\d\d\d')
+mo = phoneNumRegex.search('My number is 415-555-4242 and my office is 415-323-2311-.')
+print('phone number found: '+ mo.group())
+import re
+text = '나의 번호는 415-555-4242이라고 해 그리고 425-333-2413도 있어'
+phoneNumRegex = re.compile(r'(\d\d\d)-(\d\d\d-\d\d\d\d)')
+mo = phoneNumRegex.search(text)
+print(mo.group(1))
+print(mo.group(2))
+print(mo.group(0))
+print(mo.group())
+print(phoneNumRegex.findall(text))
+print(mo.groups())
+Areacode, maninumber = mo.groups()
+print(Areacode)
+
+batRegex = re.compile(r'Bat(wo)?man')
+mo1 = batRegex.search('The adventure of Batman')
+print(mo1.group())
+
+mo2 = batRegex.search('The adventure of Batwoman')
+print(mo2.group())
+print(mo2.group(1))
+
+###정규표현식 ^, $
+begin = re.compile(r'^Hello')
+mo22 = begin.search('Hello world!')
+print(mo22.group())
+print(begin.findall('Hello world!'))
+
+agentregex = re.compile(r'Agent (\w\w)\w*')
+print(agentregex.sub(r'\1****', 'Agent Alice told Agent Carol that Agent eve knew Agent Bobbb was a double target'))
+
+
+
+## 정규 표현식을 이용하여 프로젝트 전화번호와 이메일 추출하기
+#1 클립보드로부터 텍스트 가져오기
+#2 텍스트에서 전화번호와 주소를 찾기
+#3 클립보드에 붙여 넣기
+
+#! python3
+#phoneandemail.py - finds phone numbers and email adresses on the clipboard
+
+import pyperclip
+import re
+
+phoneregex = re.compile(r'''(
+(\d{3}|\(\d{3})?         #area code
+(\s|-|\.)?                      #separator
+(\d{3})                         #first 3 digits
+(\s|-|\.)                       #separator
+(\d{4})                         #first 4 digits
+(\s*(ext|x|ext.)\s*(\d{2,5}))?  #extension
+)''', re.VERBOSE)
+
+#TODO : Create email regex
+emailregex = re.compile(r'''(
+[a-zA-Z0-9._%+-] +
+@
+[a-zA-Z0-9.-]+
+(\.[a-zA-Z]{2,4})
+)''', re.VERBOSE)
+
+#TODO : Find matches in clipboard text
+text = str(pyperclip.paste())
+
+matches=[]
+for groups in phoneregex.findall(text):
+    phonenum = '-'.join([groups[1], groups[3], groups[5]])
+    if groups[8] != '':
+        phonenum += ' x' + groups[8]
+    matches.append(phonenum)
+for groups in emailregex.findall(text):
+    matches.append(groups[0])
+
+# TODO : clipboard 로
+if len(matches) >0:
+    pyperclip.copy('\n'.join(matches))
+    print('Copied to clipboard')
+    print('\n'.join(matches))
+else:
+    print('No phone numbers or email address found.')
+
