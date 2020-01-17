@@ -1,0 +1,62 @@
+
+## 8장 파일 읽고 쓰기
+
+import os
+print(os.path.join('usr','bin','spam'))
+myfiles = ['accounts.txt','details.csv','invite.docx']
+for filename in myfiles:
+    print(os.path.join('C:\\Users\\asweigart', filename))
+
+### 현재 작업 디렉토리
+
+print(os.getcwd())
+# os.makedirs('D:\\pycharm\\qt5\\walnut\\waffles')
+
+calcfilepath = 'D:\\pycharm\\qt5\\walnut\\waffles\\calc.exe'
+print(os.path.split(calcfilepath))
+print(calcfilepath.split(os.path.sep))
+
+## 파일 오픈하기
+hellofile = open('D:\\pycharm\\qt5\\walnut\\waffles\\masit.txt')
+hellocontent = hellofile.read()
+print(hellocontent)
+
+sonnetfile = open('D:\\pycharm\\qt5\\walnut\\waffles\\sonnet29.txt')
+print(sonnetfile.readlines())
+
+
+### 파일 쓰고 닫기
+baconfile = open('D:\\pycharm\\qt5\\walnut\\waffles\\bacon.txt','w')
+baconfile.write('Hello world1111111111!\n')
+baconfile.close()
+baconfile = open('D:\\pycharm\\qt5\\walnut\\waffles\\bacon.txt','a')
+baconfile.write('bacon is not a vegetable')
+baconfile.close()
+baconfile = open('D:\\pycharm\\qt5\\walnut\\waffles\\bacon.txt')
+content = baconfile.read()
+baconfile.close()
+print(content)
+
+import shelve
+shelffile = shelve.open('mydata')
+cats = ['Zophie','Pooka','Simon']
+shelffile['cats'] = cats
+shelffile.close()
+shelffile = shelve.open('mydata')
+print(type(shelffile))
+print(shelffile['cats'])
+shelffile.close()
+
+## pprint.pformat으로 변수 저장하기
+
+import pprint, shelve
+cats = [{'name':'Zophie','desc':'chubby'},{'name':'Pooka', 'desc':'fluffy'}]
+pprint.pformat(cats)
+fileObj = open('myCats.py', 'w')
+fileObj.write('cats = ' + pprint.pformat(cats) + '\n')
+fileObj.close()
+
+import myCats
+print(myCats.cats)
+print(myCats.cats[0])
+print(myCats.cats[0]['name'])
