@@ -57,7 +57,7 @@ import random, sys, os, math
 
 from random import *
 
-### from 을 쓰면 random.을 안붙여도 된다. 
+### from 을 쓰면 random.을 안붙여도 된다.
 
 for i in range(5):
     print(randint(1, 10))
@@ -152,3 +152,5 @@ def is_integer(x):
 
 
 print('the number of cycle is ' + str(collatz(is_integer(num))))
+
+### 무엇을 더 할 수 있을까
